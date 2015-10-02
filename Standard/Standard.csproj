@@ -221,6 +221,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\script.sql" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\css\sb-admin-2.css" />
     <Content Include="Content\js\angular.min.js" />
     <Content Include="Content\js\notification.js" />
     <Content Include="Content\lib\edit-table\editabletable.js" />
@@ -259,6 +261,10 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Reports\DataSet1.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
