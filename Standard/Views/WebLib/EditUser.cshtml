@@ -1,0 +1,65 @@
+﻿@model WebLib.Models.fwUser
+
+@{
+    ViewBag.Title = "Cập nhật người dùng";
+}
+
+@using (Html.BeginForm("EditUser", "WebLib", new { returnUrl = Request.QueryString["returnUrl"] }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+
+    <hr />
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.ID)
+    @Html.HiddenFor(model => model.AspnetUserID)
+    @Html.HiddenFor(model => model.Avata)
+    @Html.HiddenFor(model => model.Locked)
+    @Html.HiddenFor(model => model.Status)
+    @Html.HiddenFor(model => model.NotiCount)
+    @Html.HiddenFor(model => model.Pass)
+
+
+    if (Model.ID == 0)
+    {
+
+        <div class="form-group fg-float">
+            <div class="fg-line">
+                @Html.TextBoxFor(model => model.UserName, new { @class = " form-control fg-input" })
+            </div>
+            <label class="fg-label">Username</label>
+        </div>
+    }
+    else
+    {
+        <div class="form-group fg-float">
+            <div class="fg-line">
+                @Html.TextBoxFor(model => model.UserName, new { @class = " form-control fg-input", @readonly = "readonly" })
+            </div>
+            <label class="fg-label">Username</label>
+        </div>
+    }
+    @Html.ValidationMessageFor(model => model.UserName)
+
+
+    <div class="form-group fg-float">
+        <div class="fg-line">
+            @Html.TextBoxFor(model => model.Email, new { @class = " form-control fg-input" })
+        </div>
+        <label class="fg-label">Email</label>
+    </div>
+    @Html.ValidationMessageFor(model => model.Email)
+
+
+    <div class="form-group fg-float">
+        <div class="fg-line">
+            @Html.TextBoxFor(model => model.Name, new { @class = " form-control fg-input" })
+        </div>
+        <label class="fg-label">Name</label>
+    </div>
+    @Html.ValidationMessageFor(model => model.Name)
+
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    <a href="@Request.QueryString["returnUrl"]" class="btn btn-default">Hủy</a>
+
+}

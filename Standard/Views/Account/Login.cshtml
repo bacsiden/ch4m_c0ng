@@ -1,0 +1,67 @@
+﻿@{Layout = null;}
+@model Standard.Models.LoginViewModel
+<html class="login-content">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Van Laack - Đăng nhập hệ thống</title>
+
+    <!-- Vendor CSS -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+    <link href="/Content/lib/ma/css/animate.min.css" rel="stylesheet">
+    <link href="/Content/lib/ma/css/material-design-iconic-font.min.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link href="/Content/lib/ma/css/app.min.1.css" rel="stylesheet">
+    <link href="/Content/lib/ma/css/app.min.2.css" rel="stylesheet">
+    <link href="/Content/css/ma-site.css" rel="stylesheet">
+</head>
+
+<body class="login-content sw-toggled">
+    <!-- Login -->
+    <div class="lc-block toggled" id="l-login">
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="md md-person"></i></span>
+                <div class="fg-line">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Tên đăng nhập" })
+                    @Html.ValidationMessageFor(m => m.UserName)
+                </div>
+            </div>
+
+            <div class="input-group m-b-20">
+                <span class="input-group-addon"><i class="md md-accessibility"></i></span>
+                <div class="fg-line">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Mật khẩu" })
+                    @Html.ValidationMessageFor(m => m.Password)
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="" name="RememberMe">
+                    <i class="input-helper"></i>
+                    Ghi nhớ lần sau
+                </label>
+            </div>
+            <button type="submit" class="btn btn-login btn-danger btn-float waves-effect"><i class="md md-arrow-forward"></i></button>
+        }
+    </div>
+
+    <!-- Javascript Libraries -->
+    <script src="/Content/lib/ma/js/jquery.min.js"></script>
+    <script src="/Content/lib/ma/js/bootstrap.min.js"></script>
+    <script src="/Content/lib/ma/js/waves.min.js"></script>
+    <script src="/Content/lib/ma/js/functions.js"></script>
+    <!-- Placeholder for IE9 -->
+    <!--[if IE 9 ]>
+        <script src="vendors/bower_components/jquery-placeholder/jquery.placeholder.min.js"></script>
+    <![endif]-->
+
+</body>
+</html>

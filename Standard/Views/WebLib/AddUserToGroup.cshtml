@@ -1,0 +1,52 @@
+﻿@using WebLib.DAL;
+@model List<WebLib.Models.fwUser>
+
+@{
+    ViewBag.Title = "Add User To Group : \"" + ViewBag.groupName + "\"";
+    var returnUrl = Request.QueryString["returnUrl"];
+}
+
+
+@using (Html.BeginForm("AddUserToGroup", "WebLib", FormMethod.Post, new { @class = "" }))
+{
+    @Html.Hidden("returnUrl", returnUrl)
+    @Html.Hidden("groupID", (int)ViewBag.groupID)
+    <div class="col-sm-6">
+        <div class="form-group">
+            <div class="fg-line">
+                <div class="select">
+                    <select class="form-control" name="userID">
+                        <option value="0">-:-</option>
+                        @foreach (var item in (List<WebLib.Models.fwUser>)ViewBag.lstUser)
+                        {
+                            <option value="@item.ID">@item.UserName (@item.Name)</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-small">Add User</button>
+
+}
+<br />
+<div class="col-sm-12">
+    <table class="table">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a href="@Url.Action("EditUser", new { id = item.ID, returnUrl = Request.RawUrl })">@item.UserName</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <a href="@Url.Action("RemoveFromGroup", new { userID = item.ID, groupID = ViewBag.groupID, returnUrl = returnUrl })">Remove from group</a>
+                </td>
+            </tr>
+        }
+    </table>
+    <a class="btn btn-default" href="@returnUrl" >Back</a>
+</div>

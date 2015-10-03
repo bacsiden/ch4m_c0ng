@@ -1,0 +1,70 @@
+﻿#sidebar .main-menu > li > a {
+    font-weight: 600;
+}
+
+.table > thead > tr > th {
+    font-weight: 600;
+}
+
+    .table > thead > tr > th i {
+        font-weight: normal;
+    }
+
+.card .card-body.card-padding {
+    overflow: hidden;
+}
+
+.has-error ul li, .field-validation-error, .color-red {
+    color: #f44336;
+}
+
+.epc-item {
+    padding-bottom: 35px;
+}
+
+.easy-pie .pie-title {
+    bottom: -32px;
+}
+
+.easy-pie .percent:after {
+    content: "";
+}
+
+.table-bordered {
+    border: 1px solid #D2D2D2;
+}
+
+.m-r-10 {
+    margin-right: 0px !important;
+}
+
+.modal-backdrop {
+    z-index: 9;
+}
+
+div#modalDefault {
+    text-align: left;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    padding: 5px;
+}
+
+.table > thead > tr > th {
+    text-align: center;
+}
+
+
+.error {
+    border: 3px solid red !important;
+}
+
+.edittable {
+    width: 100%;
+    padding: 3px;
+    border: 1px solid white;
+}
+
+input.edittable:focus {
+    border-color: blue;
+}
