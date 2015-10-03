@@ -39,10 +39,21 @@ function addInputForTableID(id) {
     $("#" + id + " td:not(.noedit)").each(function () {
         var $this = $(this);
         var getClass = $this.attr("class");
-        var input = "<input type='text' class='edittable " + getClass + "' value='"+$this.text()+"' />";
+        var input = "<input type='text' class='edittable " + getClass + "' value='" + $this.text() + "' />";
         $this.html(input);
-        $('input.typeDate').datetimepicker({
-            format: 'DD/MM/YYYY'
-        });
+        //$('input.typeDate').datetimepicker({
+        //    format: 'DD/MM/YYYY'
+        //});
     });
+}
+
+function AddRows(id, dataRow) {
+    var obj = $(id + " tbody");
+    var no = obj.find("tr.trtableedit").length + 1;
+    dataRow = dataRow.replace("OKMENXXX", no);
+    obj.append(dataRow);
+    //$('.typeDate').datetimepicker({
+    //    format: 'DD/MM/YYYY'
+    //});
+    $('#mainTable input.focus').focus();
 }

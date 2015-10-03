@@ -1,45 +1,83 @@
 ﻿@model IEnumerable<Standard.Categories>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Danh mục";
 }
+<link href="~/Content/css/ma-site.css" rel="stylesheet" />
+@section  scripts{
+    <script src="~/Content/js/ma-layout.js"></script>
+    <script>
+        var table = {
+            row: '<tr class="trtableedit" data-id="0"><td class="noedit text-center">OKMENXXX</td><td><input type="text" class="edittable focus"></td></tr>',
+        };
+        $(document).ready(function () {
+            addInputForTableID('mainTable');
+            $(document).on('keydown', '#mainTable tr:last-child td:last-child input', function (e) {
+                var keyCode = e.keyCode || e.which;
+                if (keyCode == 9) {
+                    AddRows('#mainTable', table.row);
+                    $(this).focus();
+                }
+            });
+            $(document).on('keydown', 'input.edittable', function (e) {
+                var keyCode = e.keyCode || e.which;
+                if (keyCode == 13) {
+                    return false;
+                }
+            });
+            @if ((Model == null) || (Model != null && !Model.Any()))
+            {
+                @:AddRows('#mainTable', table.row);
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Type)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Code)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Type)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Code)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
+            }
+            $('#mainTable').find('td:nth(1) input').focus();
+        });
+        function GetDataTable() {
+            var data = [];
+            $("#mainTable tbody tr.trtableedit").each(function () {
+                var $this = $(this);
+                var listtds = $this.children();
+                var title = $(listtds[1]).children().val();
+                if (title != '') {
+                    var obj = {
+                        ID: $this.attr('data-id'),
+                        Title: title
+                    };
+                    data.push(obj);
+                }
+            });
+            $("#listCate").val(JSON.stringify(data));
+        }
+    </script>
 }
+@using (Html.BeginForm("NewOrEdit", null, new { type = ViewBag.Type }, FormMethod.Post))
+{
+    @Html.Hidden("listCate")
+    <input type="submit" class="btn btn-outline btn-primary" name="submit" value="Lưu lại" onclick="GetDataTable();" />
 
+}
+<br />
+<table id="mainTable" class="table">
+    <tr>
+        <th width="5" class="text-center">
+            #
+        </th>
+        <th width="200" class="text-center">
+            Tên danh mục
+        </th>
+    </tr>
+    @{var dem = 1;
+    foreach (var item in Model)
+    {
+        <tr class="trtableedit" data-id="@item.ID">
+            <td class="noedit text-center">
+                @(dem++)
+            </td>
+            <td>
+                <input type="text" class="edittable" value="@item.Title" />
+            </td>
+        </tr>
+    }
+    }
 </table>
+<button class="btn btn-primary btn-xs" onclick="AddRows('#mainTable', table.row); return false;"><i class="md md-add"></i> Thêm dòng</button>

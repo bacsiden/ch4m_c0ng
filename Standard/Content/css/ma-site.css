@@ -68,3 +68,11 @@ div#modalDefault {
 input.edittable:focus {
     border-color: blue;
 }
+
+.table tr.trtableedit td{
+    padding:0;
+}
+
+#mainTable{
+    width:500px;
+}

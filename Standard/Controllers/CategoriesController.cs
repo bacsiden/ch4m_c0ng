@@ -18,104 +18,37 @@ namespace Standard.Controllers
         // GET: /Categories/
         [Route("danh-muc/{id}")]
         public async Task<ActionResult> Index(string id)
-        
         {
-            return View(await db.Categories.Where(m => m.Type==id).ToListAsync());
-        }
-
-        // GET: /Categories/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
+            var list = await db.Categories.Where(m => m.Type == id).ToListAsync();
+            if (list.Count > 0)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ViewBag.Type = id;
+                return View(list);
             }
-            Categories categories = await db.Categories.FindAsync(id);
-            if (categories == null)
-            {
-                return HttpNotFound();
-            }
-            return View(categories);
-        }
-
-        // GET: /Categories/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: /Categories/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,Title,Type,Code")] Categories categories)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Categories.Add(categories);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-
-            return View(categories);
-        }
-
-        // GET: /Categories/Edit/5
-        public async Task<ActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Categories categories = await db.Categories.FindAsync(id);
-            if (categories == null)
-            {
-                return HttpNotFound();
-            }
-            return View(categories);
+            return HttpNotFound();
         }
 
         // POST: /Categories/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,Title,Type,Code")] Categories categories)
+        public async Task<bool> NewOrEdit(string listCate, string type)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(categories).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            return View(categories);
-        }
+                System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+                var list = serializer.Deserialize<List<Categories>>(listCate);
+                foreach (var item in list)
+                {
 
-        // GET: /Categories/Delete/5
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                return true;
             }
-            Categories categories = await db.Categories.FindAsync(id);
-            if (categories == null)
+            catch (Exception)
             {
-                return HttpNotFound();
-            }
-            return View(categories);
-        }
 
-        // POST: /Categories/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            Categories categories = await db.Categories.FindAsync(id);
-            db.Categories.Remove(categories);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+                return false;
+            }
         }
 
         protected override void Dispose(bool disposing)
