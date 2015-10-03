@@ -25,6 +25,6 @@ namespace Standard
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Lop> Lop { get; set; }
+        public virtual DbSet<Categories> Categories { get; set; }
     }
 }

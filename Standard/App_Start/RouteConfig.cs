@@ -12,6 +12,7 @@ namespace Standard
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapMvcAttributeRoutes();
             routes.IgnoreRoute("{*x}", new { x = @".*\.asmx(/.*)?" }); 
             routes.MapRoute(
                 name: "Default",
